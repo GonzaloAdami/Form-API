@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BD MySQL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>Base de datos</li>
+            <li>Host</li>
+            <li>Github</li>
+        </ul>
+    </nav>
+   
+    <main class="colum">
+        <header class="table">
+            <div class="colum"><label for="" class="headers">ID</label></div>
+            <div class="colum"><label for="" class="headers">User</label></div>
+            <div class="colum"><label for="" class="headers">Email</label></div>
+            <div class="colum"><label for="" class="headers">Password</label></div>
+        </header>
+
+        <div class="colum">
+            {% for user in users %}
+            <div class="row">
+                <div class="colum"><label for="">{{ user[0] }}</label></div> <!-- ID -->
+                <div class="colum"><label for="">{{ user[1] }}</label></div> <!-- User -->
+                <div class="colum"><label for="">{{ user[2] }}</label></div> <!-- Email -->
+                <div class="colum"><label for="">{{ user[3] }}</label></div> <!-- Password -->
+            </div>
+            {% endfor %}
+        </div>
+
+    </main>
+</body>
+</html>

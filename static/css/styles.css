@@ -1,0 +1,83 @@
+/* static/css/styles.css */
+body {
+    background-color: #cac7db;
+    font-family: Arial, sans-serif;
+    max-width: 100vw;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h1 {
+    color: #ff0000;
+    text-align: center;
+}
+
+p {
+    color: #666;
+    font-size: 18px;
+    text-align: center;
+}
+
+.colum{
+    display: flex;
+    flex-direction: column;
+    gap: 1;
+}
+
+.table{
+    display: flex;
+    float: left;
+   
+    background-color: #556a7a;
+}
+
+label{
+    color: #f0f0f0;
+    
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+    min-width: 20.5em;
+    border: 1px solid black;
+    background-color: #6f757e;
+}
+.headers{
+    background-color: #323f49;
+    font-weight: 600;
+}
+nav{
+    width: 100%;
+    height: 3.5em;
+    background-color: rgb(34, 46, 83);
+}
+
+ul{
+    display: flex;
+    float: left;
+    gap: 1em;
+    align-items: center;
+    text-align: center;
+    
+    width: 100%;
+   
+}
+li{
+    list-style: none;
+    color: #f0f0f0;
+    font-weight: 600;
+    font-family: 1.2em;
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.row{
+    display: flex;
+    float: left;
+}
