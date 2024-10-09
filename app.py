@@ -1,15 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_cors import CORS
 import os
-import psycopg2  # Asegúrate de haber instalado esta librería
 import mysql.connector
 
 # Inicializar la aplicación
 app = Flask(__name__)
 CORS(app)
+
 # Configuración de la base de datos
-
-
 def get_db_connection():
     conn = mysql.connector.connect(
         host='bithey6ubcu8kcihev1e-mysql.services.clever-cloud.com',
@@ -19,8 +17,6 @@ def get_db_connection():
         port=3306  # Cambia al puerto correcto si es diferente
     )
     return conn
-
-
 
 # Ruta principal
 @app.route('/')
@@ -53,8 +49,33 @@ def handle_form():
 
     return jsonify({'message': 'Usuario agregado exitosamente!'}), 201  # Respuesta exitosa
 
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()  # Obtén los datos del login
+    email = data.get('email')
+    password = data.get('password')
 
+    if not email or not password:
+        return jsonify({'error': 'Correo y contraseña son obligatorios!'}), 400
 
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    try:
+        # Verifica si el usuario existe y si la contraseña es correcta
+        cur.execute('SELECT * FROM Users WHERE Email = %s AND Password = %s', (email, password))
+        user = cur.fetchone()  # Obtiene el primer usuario que coincida
+        
+        if user:
+            return jsonify({'message': 'Login exitoso!', 'user': user}), 200  # Respuesta exitosa
+        else:
+            return jsonify({'error': 'Correo o contraseña incorrectos!'}), 401  # Error de login
+        
+    except mysql.connector.Error as err:
+        return jsonify({'error': str(err)}), 500  # Devuelve un error si falla la consulta
+    finally:
+        cur.close()
+        conn.close()
 
 @app.route('/users')
 def users():
@@ -67,8 +88,6 @@ def users():
     
     return render_template('index.html', users=users)  # Pasa los usuarios al template
 
-
-
 # Ejemplo de ruta para obtener datos de la base de datos
 @app.route('/data')
 def data():
@@ -80,7 +99,6 @@ def data():
     conn.close()
     return jsonify(rows)
 
-# Resto de las rutas...
 @app.route('/add_users')
 def add_users():
     users = [
@@ -102,7 +120,6 @@ def add_users():
     conn.close()
 
     return "Usuarios añadidos exitosamente."
-
 
 # Ejecutar la aplicación
 if __name__ == '__main__':
